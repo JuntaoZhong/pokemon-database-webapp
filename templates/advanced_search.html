@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- HTML, CSS, and JS for the files of the form advanced_search.* are adapted from https://makitweb.com/make-a-dropdown-with-search-box-using-jquery/ !-->
+
+	<!-- Use JQuery and the JQuery plugin select2 for searchable dropdown menus. It's important that this comes before the "usual boilerplate" below! !-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Installing from Google is likely faster than using normal install, since user might have this script cached !-->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+
+	<!-- Do the usual boilerplate. !-->
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='advanced_search.css') }}" />
+	<script type="text/javascript" src="{{ url_for('static', filename='advanced_search.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='shared_functions.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='InfinitePokemonCardScroller.js') }}"></script>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" />
+	<title> Advanced search </title>
+</head>
+
+<body>
+	<div id = "advanced_search">
+		<h1> Advanced search</h1>
+
+		<div class = "container">
+			<input type="text" id = "id_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+			<label for="id_search"> Pokedex ID </label>
+		</div>
+
+		<div class = "container">
+			<input type="text" id="pokemon_name_search" placeholder='Default: any (e.g. "s", "sq", "squir", "squirtle", "abcd").'> </select> <!-- The class is used by the onReady() function in the .js file !-->
+			<label for="pokemon_name_search"> Substring of Pokemon name </label>
+		</div>
+
+		<div class = "container">
+			<select id="legendary_status_dropdown" class = "search2"> </select>
+			<label for="legendary_status_dropdown"> Legendary status </label>
+		</div>
+
+		<div class = "container">
+			<div class = "container">
+				<select id="type1_dropdown" class = "search2"> </select>
+				<label for="type1_dropdown"> Type 1 </label>
+			</div>
+			<div class = "container">
+				<select id="type2_dropdown" class = "search2"> </select>
+				<label for="type2_dropdown"> Type 2 </label>
+			</div>
+		</div>
+
+		<div class = "container">
+			<div class = "container">
+				<select id="ability1_dropdown" class = "search2"> </select>
+				<label for="ability1_dropdown"> Ability 1 </label>
+			</div>
+			<div class = "container">
+				<select id="ability2_dropdown" class = "search2"> </select>
+				<label for="ability1_dropdown"> Ability 2 </label>
+			</div>
+			<div>
+				<select id="hidden_ability_dropdown" class = "search2"> </select>
+				<label for="hidden_ability_dropdown"> Hidden ability </label>
+			</div>
+		</div>
+
+		<div id = "stats_collapsible_container">
+			<button type="button" id="stats_collapsible_button"> Stats </button>
+			<div id = "content">
+				<!-- Recall that the stats table is: health, special attack,
+													 attack, special defense,
+													 defense, speed		   
+				 
+				The following div contains search fields for the left column of the stats table. !-->
+				<div>
+					<div class = "container">
+						<input type="text" id = "health_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Health </label>
+					</div>
+
+					<div class = "container">
+						<input type="text" id = "attack_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Attack </label>
+					</div>
+				
+					<div class = "container">
+						<input type="text" id = "defense_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Defense </label>
+					</div>
+				</div>
+
+				<!-- This div search fields for the right column of the stats table !-->
+
+				<div>
+					<div class = "container">
+						<input type="text" id = "special_attack_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Special attack </label>
+					</div>
+
+					<div class = "container">
+						<input type="text" id = "special_defense_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Special defense </label>
+					</div>
+				
+					<div class = "container">
+						<input type="text" id = "speed_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+						<label for="id_search"> Speed </label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class = "container">
+			<select id="region_dropdown" class = "search2"> </select>
+			<label for="region_dropdown"> Region </label>
+		</div>
+
+		<div>
+			<input type="text" id = "catch_rate_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+			<label for="catch_rate_search"> Catch rate (between 0 and 255) </label>
+		</div>
+		
+		<div class = "container">
+			<div> Percent chance that the Pokemon spawns as... </div>
+			<div class = "container">
+				<input type="text" id = "percent_male_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+				<label for="percent_male_search" class = "sex_label"> Male </label>
+			</div>
+			<div class = "container">
+				<input type="text" id = "percent_female_search" placeholder='Default: any (e.g. "7", "50-60", "50-", "-60")'> </input>
+				<label for="percent_female_search" class = "sex_label"> Female </label>
+			</div>
+		</div>
+
+		<div class = "container">
+			<div>
+				<select id="egg_group1_dropdown" class = "search2"> </select>
+				<label for="egg_group1_dropdown"> Egg group 1 </label>
+			</div>
+			<div>
+				<select id="egg_group2_dropdown" class = "search2"> </select>
+				<label for="egg_group2_dropdown"> Egg group 2 </label>
+			</div>
+		</div>
+
+		<div class = "container">
+			<div> 
+				<select id="game_dropdown" class = "search2"> </select> 
+				<label for="game_dropdown"> Game of origin </label> 
+			</div>
+		</div>
+		<input type= "button" value="Search" id="search_button">
+	</div>
+	<h3 id = "link_to_homepage">this should be a link; if you see this you get a problem</h3> <!-- This is temporary, so that the bulleted list will be on the right half of the page for turning in the first draft. Move this h3 outside the div with id "advanced_search" later. !-->
+	<div id = "pokemon_landing_display">
+		<p>waiting for the javascript</p>
+	</div>
+</body>
+</html>

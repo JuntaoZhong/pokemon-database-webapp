@@ -1,0 +1,73 @@
+h1 {
+    padding: 20px 20px;
+}
+
+#dropdown_menus {
+    display: flex;
+    flex-direction: row;
+}
+
+#dropdown_menus > * {
+    margin: .5em;
+}
+
+.left-align{
+    position: absolute;
+    left: 12.5%;
+    top: 10%;
+    padding: 10px;
+}
+
+.right-align{
+    position: absolute;
+    right: 12%;
+    top: 8%;
+    padding: 10px;
+}
+
+.center-align{
+    margin: auto;
+    text-align: center;
+}
+
+.tool-bar{
+    height: 110px; 
+}
+
+body {
+    background-image: url("../static/background_image.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+select {
+    width: 120px;
+}
+
+.container {
+  padding-top: .25em;
+  padding-bottom: .25em;
+}
+
+.highlight {
+    display: inline-block;
+}
+.highlight img:hover {
+    opacity: .5;
+    background-color: yellow;
+    color: black;
+}
+
+.col-2 {
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding-right: 5%;
+}
+
+#information_sign_content {
+    width: 100%;
+    padding: 30px 0;
+    background-color: lightyellow;
+    display: none;
+}
